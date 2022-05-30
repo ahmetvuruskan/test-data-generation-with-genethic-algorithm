@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 
@@ -42,7 +41,7 @@ class Database {
         return true;
     }
 
-     String getColumnNames(String table) {
+    String getColumnNames(String table) {
         List<String> columns = new ArrayList<>();
         try {
             this.statement = dbConnection.createStatement();
@@ -54,24 +53,48 @@ class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-      //  System.out.println(String.join(",", columns));
+        //  System.out.println(String.join(",", columns));
         return String.join(",", columns);
     }
 
     void insertFakeData(int notationMax, String tableName) throws IOException, InterruptedException {
         APOD json;
-        for (int i=0; i<notationMax;i++){
+        for (int i = 0; i < notationMax; i++) {
             json = request.request();
             String data[] = json.name.split(" ");
             insert(tableName,
-                    "'"+json.plasticcard+"','"+data[0]+"','"+data[1]+"','"+json.maiden_name+"','"+json.birth_data+"','"+json.blood+"','"+json.eye+"','"+json.hair+"','"+json.phone_w+"','"
-                            +json.address+"','"+json.email_u+"@"+json.email_d+"','"+json.username+"','"+json.password.toString()+"'");
+                    "'" + json.plasticcard + "','" + data[0] + "','" + data[1] + "','" + json.maiden_name + "','" + json.birth_data + "','" + json.blood + "','" + json.eye + "','" + json.hair + "','" + json.phone_w + "','"
+                            + json.address + "','" + json.email_u + "@" + json.email_d + "','" + json.username + "','" + json.password.toString() + "'");
 
-            System.out.println("'"+json.plasticcard+"','"+data[0]+"','"+data[1]+"','"+json.maiden_name+"','"+json.birth_data+"','"+json.blood+"','"+json.eye+"','"+json.hair+"','"+json.phone_w+"','"
-                    +json.address+"','"+json.email_u+"@"+json.email_d+"','"+json.username+"','"+json.password+"'");
+            System.out.println("'" + json.plasticcard + "','" + data[0] + "','" + data[1] + "','" + json.maiden_name + "','" + json.birth_data + "','" + json.blood + "','" + json.eye + "','" + json.hair + "','" + json.phone_w + "','"
+                    + json.address + "','" + json.email_u + "@" + json.email_d + "','" + json.username + "','" + json.password + "'");
             TimeUnit.MILLISECONDS.sleep(500);
         }
-
-
     }
+
+    ArrayList<RandomUser>readRandomUser() throws SQLException {
+        ResultSet resultSet = null;
+        ArrayList<RandomUser> randomUserList = new ArrayList<>();
+        try {
+            this.statement = dbConnection.createStatement();
+            String sql = "SELECT *  FROM randomuser ";
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                RandomUser randomUser = new RandomUser();
+                randomUser.setuId(resultSet.getString("uid"));
+                randomUser.setuName(resultSet.getString("uname"));
+                randomUser.setuSurname(resultSet.getString("usurname"));
+                randomUser.setuUserName(resultSet.getString("uusername"));
+                randomUser.setuPassWord(resultSet.getString("upassword"));
+                randomUserList.add(randomUser);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
+        return randomUserList;
+    }
+
+
 }
