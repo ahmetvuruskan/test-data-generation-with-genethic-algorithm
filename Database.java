@@ -26,10 +26,10 @@ class Database {
     boolean insert(String tableName, String values) {
         try {
             statement = dbConnection.createStatement();
-            String sql = "INSERT INTO " + tableName + "( " + this.getColumnNames(tableName) + ") VALUES ( " + values + " ) ";
+            String sql = "INSERT INTO " + tableName + " ( "  + this.getColumnNames(tableName) + ") VALUES ( " + values + " ) ";
+            System.out.println(sql);
             int status = statement.executeUpdate(sql);
-//            statement.close();
-//            dbConnection.close();
+
             if (status != 1) {
                 return false;
             }
@@ -53,7 +53,7 @@ class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        //  System.out.println(String.join(",", columns));
+          System.out.println(String.join(",", columns));
         return String.join(",", columns);
     }
 
@@ -72,7 +72,7 @@ class Database {
         }
     }
 
-    ArrayList<RandomUser>readRandomUser() throws SQLException {
+    ArrayList<RandomUser>Rread() throws SQLException {
         ResultSet resultSet = null;
         ArrayList<RandomUser> randomUserList = new ArrayList<>();
         try {
@@ -94,6 +94,40 @@ class Database {
         }
 
         return randomUserList;
+    }
+    ArrayList<QualifiedUser>Qread() throws SQLException {
+        ResultSet resultSet = null;
+        ArrayList<QualifiedUser> randomUserList = new ArrayList<>();
+        try {
+            this.statement = dbConnection.createStatement();
+            String sql = "SELECT *  FROM qualifiedusernames ORDER BY qualityvalue DESC";
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                QualifiedUser qualifiedUser = new QualifiedUser();
+                qualifiedUser.setuID(resultSet.getString("id"));
+                qualifiedUser.setUserName(resultSet.getString("username"));
+                randomUserList.add(qualifiedUser);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return randomUserList;
+    }
+
+    boolean update(String tableName, String values,String columnName,String value) {
+        try {
+            statement = dbConnection.createStatement();
+            String sql = "UPDATE " + tableName + "( " + this.getColumnNames(tableName) + ") VALUES ( " + values + " ) WHERE  "+columnName+" = " + value;
+            int status = statement.executeUpdate(sql);
+            if (status != 1) {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() + "   " + e.getErrorCode());
+        }
+
+        return true;
     }
 
 

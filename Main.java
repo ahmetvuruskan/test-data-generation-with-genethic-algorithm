@@ -11,7 +11,13 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException, SQLException {
         Database database = new Database();
         Request request = new Request();
+        Genethic genethic = new Genethic();
       // database.insertFakeData(50, "randomuser");
+      // ArrayList<RandomUser> randomUsers = database.Rread();
+
+        //genethic.fitness();
+database.getColumnNames("generatedUserNames");
+      genethic.cross();
 
     }
 
