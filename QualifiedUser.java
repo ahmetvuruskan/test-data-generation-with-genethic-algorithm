@@ -3,6 +3,8 @@ public class QualifiedUser {
     private String userName;
     private  double qualityValue;
 
+
+
     public double getQualityValue() {
         return qualityValue;
     }
@@ -15,6 +17,8 @@ public class QualifiedUser {
         return userName;
     }
 
+
+
     public void setQualityValue(double qualityValue) {
         this.qualityValue = qualityValue;
     }
@@ -26,4 +30,6 @@ public class QualifiedUser {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+
 }

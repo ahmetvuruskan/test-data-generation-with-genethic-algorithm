@@ -99,12 +99,13 @@ class Database {
         ArrayList<QualifiedUser> randomUserList = new ArrayList<>();
         try {
             this.statement = dbConnection.createStatement();
-            String sql = "SELECT *  FROM qualifiedusernames ORDER BY qualityvalue DESC";
+            String sql = "SELECT *  FROM qualifiedusernames ORDER BY val DESC";
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
                 QualifiedUser qualifiedUser = new QualifiedUser();
                 qualifiedUser.setuID(resultSet.getString("id"));
                 qualifiedUser.setUserName(resultSet.getString("username"));
+                qualifiedUser.setQualityValue(resultSet.getDouble("qualityvalue"));
                 randomUserList.add(qualifiedUser);
             }
         } catch (Exception e) {
@@ -114,10 +115,11 @@ class Database {
         return randomUserList;
     }
 
-    boolean update(String tableName, String values,String columnName,String value) {
+    boolean update(String tableName,String column, String values,String columnName,String value) {
         try {
             statement = dbConnection.createStatement();
-            String sql = "UPDATE " + tableName + "( " + this.getColumnNames(tableName) + ") VALUES ( " + values + " ) WHERE  "+columnName+" = " + value;
+            String sql = "UPDATE " + tableName + " SET " + column +" = " + values + "  WHERE  "+columnName+" = '" + value+"'";
+            System.out.println(sql);
             int status = statement.executeUpdate(sql);
             if (status != 1) {
                 return false;
@@ -125,8 +127,16 @@ class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "   " + e.getErrorCode());
         }
-
         return true;
+    }
+
+    int getSum() throws SQLException {
+        ResultSet resultSet;
+        statement = dbConnection.createStatement();
+        String sql = "SELECT SUM(qualityvalue) as sum FROM qualifiedusernames";
+        resultSet = statement.executeQuery(sql);
+        resultSet.next();
+        return    resultSet.getInt("sum");
     }
 
 

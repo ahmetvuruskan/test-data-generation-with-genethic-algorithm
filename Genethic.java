@@ -8,8 +8,9 @@ public class Genethic {
         // f(x) = x^2
         ArrayList<RandomUser> randomUsers = database.Rread();
         for (RandomUser randomUser : randomUsers) {
+        Double fitnessValue  =    Math.pow(randomUser.getuUserName().length(), 2);
             database.insert("qualifiedusernames",
-                    "'" + randomUser.getuId() + "','" + randomUser.getuUserName() + "','" + Math.pow(randomUser.getuUserName().length(), 2) + "'");
+                    "'" + randomUser.getuId() + "','" + randomUser.getuUserName() + "','" + fitnessValue + "',"+0);
         }
     }
 
@@ -29,6 +30,17 @@ public class Genethic {
         }
 
 
+    }
+
+    ArrayList<QualifiedUser> roulette() throws SQLException {
+        ArrayList<QualifiedUser> qualifiedUsers = new ArrayList<>();
+        ArrayList<QualifiedUser> qualifiedUsers1  = database.Qread();
+        int sum = database.getSum();
+        for (QualifiedUser user:qualifiedUsers1){
+            database.update("qualifiedusernames","val", String.valueOf(user.getQualityValue()/sum),"id",user.getuID());
+
+        }
+        return qualifiedUsers;
     }
 
 
