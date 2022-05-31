@@ -53,7 +53,7 @@ class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-          System.out.println(String.join(",", columns));
+         // System.out.println(String.join(",", columns));
         return String.join(",", columns);
     }
 
@@ -68,7 +68,6 @@ class Database {
 
             System.out.println("'" + json.plasticcard + "','" + data[0] + "','" + data[1] + "','" + json.maiden_name + "','" + json.birth_data + "','" + json.blood + "','" + json.eye + "','" + json.hair + "','" + json.phone_w + "','"
                     + json.address + "','" + json.email_u + "@" + json.email_d + "','" + json.username + "','" + json.password + "'");
-            TimeUnit.MILLISECONDS.sleep(500);
         }
     }
 

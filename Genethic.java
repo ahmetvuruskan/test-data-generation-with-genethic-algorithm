@@ -21,7 +21,7 @@ public class Genethic {
             String f = String.valueOf(qualifiedUser.getUserName().charAt(0))+String.valueOf(qualifiedUser.getUserName().charAt(1))+String.valueOf(qualifiedUser.getUserName().charAt(2));
             int len = qualifiedUsers.get(index+1).getUserName().length();
             String l = String.valueOf(qualifiedUsers.get(index+1).getUserName().charAt(len-1))+String.valueOf(qualifiedUsers.get(index+1).getUserName().charAt(len-2))+String.valueOf(qualifiedUsers.get(index+1).getUserName().charAt(len-3)) ;
-            System.out.println(l+f);
+            System.out.println("'"+qualifiedUser.getuID()+"','"+l+f+"'");
             if (size ==index){
                 break;
             }

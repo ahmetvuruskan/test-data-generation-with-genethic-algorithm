@@ -12,12 +12,9 @@ public class Main {
         Database database = new Database();
         Request request = new Request();
         Genethic genethic = new Genethic();
-      // database.insertFakeData(50, "randomuser");
-      // ArrayList<RandomUser> randomUsers = database.Rread();
-
-        //genethic.fitness();
-database.getColumnNames("generatedUserNames");
-      genethic.cross();
+        //   database.insertFakeData(60, "randomuser");
+        //    genethic.fitness();
+        genethic.cross();
 
     }
 
