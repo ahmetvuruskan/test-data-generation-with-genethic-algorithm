@@ -91,7 +91,6 @@ class Database {
             System.out.println(e.getMessage());
 
         }
-
         return randomUserList;
     }
     ArrayList<QualifiedUser>Qread() throws SQLException {

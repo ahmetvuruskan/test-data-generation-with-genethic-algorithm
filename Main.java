@@ -12,9 +12,9 @@ public class Main {
         Database database = new Database();
         Request request = new Request();
         Genethic genethic = new Genethic();
-        // database.insertFakeData(50, "randomuser");
-        // genethic.fitness();
-        //   genethic.roulette();
+         database.insertFakeData(30, "randomuser");
+         genethic.fitness();
+           genethic.roulette();
         genethic.cross();
 
     }

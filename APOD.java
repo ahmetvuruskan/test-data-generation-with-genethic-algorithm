@@ -29,7 +29,6 @@ public class APOD {
     public final String ipv4_url;
     public final String email_url;
     public final String domain_url;
-
     public final String birth_data;
     public final String phone_w;
     public final String email_u;
